@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vahid Babazade — Backend developer</title>
+    <meta name="description" content="Backend developer in Baku. Python, FastAPI, PostgreSQL. Projects: Kernl, an AI news briefing, and a price model for Baku apartments.">
+
+    <meta property="og:title" content="Vahid Babazade — Backend developer">
+    <meta property="og:description" content="Python, FastAPI, PostgreSQL. I build data pipelines that turn messy web data into something people can use.">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+    <style>
+        /* ---------- Colors: cool grey-blue paper, steel blue, one warm signal color ---------- */
+        :root {
+            --paper: #edf0f3;
+            --surface: #f8f9fb;
+            --ink: #17202b;
+            --muted: #586372;
+            --rule: #c9d1da;
+            --accent: #2f5d8a;
+            --signal: #b8832a;
+
+            --sans: "Schibsted Grotesk", "Segoe UI", Arial, sans-serif;
+            --mono: "IBM Plex Mono", Consolas, monospace;
+
+            color-scheme: light;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --paper: #131920;
+                --surface: #1a222b;
+                --ink: #e2e7ed;
+                --muted: #95a2b1;
+                --rule: #2b3642;
+                --accent: #8db4dc;
+                --signal: #dca452;
+
+                color-scheme: dark;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: var(--sans);
+            font-size: 1.0625rem;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--accent);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 1px;
+        }
+
+        a:hover {
+            text-decoration-thickness: 2px;
+        }
+
+        a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+            border-radius: 2px;
+        }
+
+        /* One column, left aligned: easy to read from top to bottom */
+        .page {
+            max-width: 48rem;
+            margin: 0 auto;
+            padding: 5.5rem 1.5rem 4rem;
+        }
+
+        /* ---------- Hero ---------- */
+
+        .name {
+            margin: 0;
+            font-size: clamp(2.75rem, 8vw, 4.5rem);
+            font-weight: 700;
+            line-height: 0.98;
+            letter-spacing: -0.035em;
+        }
+
+        .intro {
+            max-width: 34rem;
+            margin: 1.5rem 0 0;
+            color: var(--muted);
+            font-size: 1.25rem;
+            line-height: 1.5;
+        }
+
+        .intro strong {
+            color: var(--ink);
+            font-weight: 500;
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.75rem;
+            margin: 2rem 0 0;
+            padding: 0;
+            list-style: none;
+            font-weight: 500;
+        }
+
+        /* ---------- Sections ---------- */
+
+        section {
+            margin-top: 5.5rem;
+        }
+
+        h2 {
+            margin: 0 0 2rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid var(--rule);
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+        }
+
+        /* ---------- A project: title, what it does, its pipeline, facts, links ---------- */
+
+        .project + .project {
+            margin-top: 4rem;
+        }
+
+        .project h3 {
+            margin: 0;
+            font-size: 1.75rem;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .lead {
+            max-width: 38rem;
+            margin: 0.5rem 0 0;
+            color: var(--muted);
+            font-size: 1.125rem;
+        }
+
+        /* The pipeline: the stages the data goes through, left to right, joined by one line.
+           It is a real sequence, so the stages are in order */
+        .pipeline {
+            position: relative;
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 1rem;
+            margin: 2rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        /* The line behind the dots: from the first dot to the last one.
+           4 equal columns with 1rem gaps: the last dot starts at 75% + 0.75rem */
+        .pipeline::before {
+            content: "";
+            position: absolute;
+            top: 0.45rem;
+            left: 0.45rem;
+            width: calc(75% + 0.75rem);
+            height: 2px;
+            background: var(--rule);
+        }
+
+        .pipeline::after {
+            content: "";
+            position: absolute;
+            top: 0.45rem;
+            left: 0.45rem;
+            height: 2px;
+            width: calc(75% + 0.75rem);
+            background: var(--accent);
+            transform-origin: left;
+            animation: draw 1.6s cubic-bezier(0.6, 0, 0.2, 1) 0.3s both;
+        }
+
+        .stage {
+            position: relative;
+            z-index: 1;
+        }
+
+        .dot {
+            display: block;
+            width: 0.95rem;
+            height: 0.95rem;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            background: var(--paper);
+            animation: fill 0.3s ease both;
+        }
+
+        /* Each dot fills when the line reaches it */
+        .stage:nth-child(1) .dot { animation-delay: 0.3s; }
+        .stage:nth-child(2) .dot { animation-delay: 0.8s; }
+        .stage:nth-child(3) .dot { animation-delay: 1.3s; }
+        .stage:nth-child(4) .dot { animation-delay: 1.8s; }
+
+        @keyframes draw {
+            from { transform: scaleX(0); }
+            to   { transform: scaleX(1); }
+        }
+
+        @keyframes fill {
+            from { background: var(--paper); }
+            to   { background: var(--accent); }
+        }
+
+        .stage-name {
+            display: block;
+            margin-top: 0.85rem;
+            font-weight: 700;
+        }
+
+        .stage-text {
+            display: block;
+            margin-top: 0.2rem;
+            color: var(--muted);
+            font-size: 0.92rem;
+            line-height: 1.45;
+        }
+
+        /* Tools in the stage: code-like names, so a code font */
+        .stage-text code,
+        .stack code {
+            font-family: var(--mono);
+            font-size: 0.85em;
+            color: var(--ink);
+        }
+
+        .facts {
+            max-width: 40rem;
+            margin: 2rem 0 0;
+            padding-left: 1.1rem;
+        }
+
+        .facts li + li {
+            margin-top: 0.4rem;
+        }
+
+        .facts li::marker {
+            color: var(--signal);
+        }
+
+        .stack {
+            margin: 1.5rem 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.5rem;
+            margin: 1.25rem 0 0;
+            padding: 0;
+            list-style: none;
+            font-weight: 500;
+        }
+
+        /* ---------- Experience and education: what, where, when ---------- */
+
+        .entry {
+            display: grid;
+            grid-template-columns: 9rem minmax(0, 1fr);
+            gap: 0.25rem 2rem;
+        }
+
+        .entry + .entry {
+            margin-top: 2rem;
+        }
+
+        .when {
+            color: var(--muted);
+            font-size: 0.95rem;
+            font-variant-numeric: tabular-nums;
+            padding-top: 0.15rem;
+        }
+
+        .entry h3 {
+            margin: 0;
+            font-size: 1.15rem;
+            font-weight: 700;
+        }
+
+        .where {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        .entry p:not(.where) {
+            max-width: 36rem;
+            margin: 0.6rem 0 0;
+        }
+
+        /* ---------- Skills: plain lines, grouped ---------- */
+
+        .skills {
+            display: grid;
+            grid-template-columns: 9rem minmax(0, 1fr);
+            gap: 0.75rem 2rem;
+            margin: 0;
+        }
+
+        .skills dt {
+            color: var(--muted);
+        }
+
+        .skills dd {
+            margin: 0;
+        }
+
+        /* ---------- Footer ---------- */
+
+        footer {
+            margin-top: 5.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--rule);
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* ---------- Phones ---------- */
+
+        @media (max-width: 640px) {
+            .page {
+                padding: 3.5rem 1rem 3rem;
+            }
+
+            section {
+                margin-top: 4rem;
+            }
+
+            /* The pipeline goes down instead of across: the line on the left */
+            .pipeline {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.25rem;
+                padding-left: 1.75rem;
+            }
+
+            .pipeline::before,
+            .pipeline::after {
+                top: 0.45rem;
+                bottom: 0.45rem;
+                left: 0.45rem;
+                right: auto;
+                width: 2px;
+                height: auto;
+            }
+
+            .pipeline::after {
+                transform-origin: top;
+                animation-name: draw-down;
+            }
+
+            .dot {
+                position: absolute;
+                top: 0.05rem;
+                left: -1.75rem;
+            }
+
+            .stage-name {
+                margin-top: 0;
+            }
+
+            .entry,
+            .skills {
+                grid-template-columns: minmax(0, 1fr);
+            }
+
+            .skills dd + dt {
+                margin-top: 0.5rem;
+            }
+        }
+
+        @keyframes draw-down {
+            from { transform: scaleY(0); }
+            to   { transform: scaleY(1); }
+        }
+
+        /* Animations turned off in the system settings: the line and the dots are simply there */
+        @media (prefers-reduced-motion: reduce) {
+            .pipeline::after,
+            .dot {
+                animation: none;
+            }
+
+            .dot {
+                background: var(--accent);
+            }
+        }
+    </style>
+</head>
+<body>
+    <main class="page">
+        <header>
+            <h1 class="name">Vahid<br>Babazade</h1>
+            <p class="intro">
+                <strong>Backend developer in Baku.</strong>
+                I build data pipelines that take messy data from the web, clean it, run it through a model
+                and give people something they can use.
+            </p>
+            <ul class="links">
+                <li><a href="https://github.com/vbabazade8">GitHub</a></li>
+                <li><a href="https://www.linkedin.com/in/vahid-babazade">LinkedIn</a></li>
+                <li><a href="mailto:vahidbabazade6@gmail.com">vahidbabazade6@gmail.com</a></li>
+            </ul>
+        </header>
+
+        <section aria-labelledby="projects">
+            <h2 id="projects">Projects</h2>
+
+            <article class="project">
+                <h3>Kernl</h3>
+                <p class="lead">
+                    A daily AI briefing on Azerbaijani business news for executives and investors,
+                    in English, Azerbaijani and Russian.
+                </p>
+
+                <ol class="pipeline" aria-label="How Kernl works">
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Collect</span>
+                        <span class="stage-text">Scrapers for apa.az and axar.az plus 16 RSS feeds, every 4 hours</span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Store</span>
+                        <span class="stage-text">400–600 news a day in <code>PostgreSQL</code> (Neon)</span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Summarize</span>
+                        <span class="stage-text"><code>Gemini</code> as a senior analyst, one digest per industry</span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Deliver</span>
+                        <span class="stage-text">Website, email and Telegram, every morning</span>
+                    </li>
+                </ol>
+
+                <ul class="facts">
+                    <li>Turns hundreds of articles into a five-minute read for four industries: investment, banking, energy and real estate.</li>
+                    <li>Every fact in a digest links to the original article, so readers can check it.</li>
+                    <li>Runs on its own with GitHub Actions. Accounts with email codes, CSRF protection and rate limits are built in.</li>
+                </ul>
+
+                <p class="stack">
+                    <code>Python</code>, <code>FastAPI</code>, <code>PostgreSQL</code>, <code>Gemini API</code>,
+                    <code>GitHub Actions</code>, <code>Vercel</code>
+                </p>
+
+                <ul class="project-links">
+                    <li><a href="https://kernl.news">kernl.news</a></li>
+                    <li><a href="https://github.com/vbabazade8/az-news-assistant">Source code</a></li>
+                </ul>
+            </article>
+
+            <article class="project">
+                <h3>Baku apartment prices</h3>
+                <p class="lead">
+                    A model that estimates the price of an apartment in Baku from its area, rooms, floor and district.
+                </p>
+
+                <ol class="pipeline" aria-label="How the price model works">
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Collect</span>
+                        <span class="stage-text">58,675 listings from the bina.az <code>GraphQL</code> API</span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Clean</span>
+                        <span class="stage-text">Duplicates and rentals removed, 44,382 listings left</span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Train</span>
+                        <span class="stage-text">4 models compared, gradient boosting tuned with <code>Optuna</code></span>
+                    </li>
+                    <li class="stage">
+                        <span class="dot" aria-hidden="true"></span>
+                        <span class="stage-name">Serve</span>
+                        <span class="stage-text"><code>FastAPI</code> and a simple form, in <code>Docker</code></span>
+                    </li>
+                </ol>
+
+                <ul class="facts">
+                    <li>The average error went from about 120,000 to 37,500 AZN (R² 0.83) as the dataset grew from 1,400 to 44,000 listings.</li>
+                    <li>Area and district matter most; the paid "VIP" listing flag barely matters at all.</li>
+                    <li>Each step is a separate notebook, so the reasoning behind every change can be followed.</li>
+                </ul>
+
+                <p class="stack">
+                    <code>Python</code>, <code>pandas</code>, <code>scikit-learn</code>, <code>Optuna</code>,
+                    <code>FastAPI</code>, <code>Docker</code>
+                </p>
+
+                <ul class="project-links">
+                    <li><a href="https://home-price-prediction-sandy.vercel.app/static/index.html">Try it</a></li>
+                    <li><a href="https://github.com/vbabazade8/home_price_prediction">Source code</a></li>
+                </ul>
+            </article>
+        </section>
+
+        <section aria-labelledby="experience">
+            <h2 id="experience">Experience</h2>
+
+            <div class="entry">
+                <p class="when">2026 – now</p>
+                <div>
+                    <h3>Backend Developer</h3>
+                    <p class="where">Azerpoçt, Baku</p>
+                    <p>
+                        Automating business processes for the national postal operator on Corezoid: process logic
+                        in JavaScript, PostgreSQL functions, and internal tools such as product management forms
+                        and helpdesk ticket pages.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="education">
+            <h2 id="education">Education</h2>
+
+            <div class="entry">
+                <p class="when">2024 – 2028</p>
+                <div>
+                    <h3>Information Technology, Bachelor's</h3>
+                    <p class="where">Azerbaijan State University of Economics (UNEC)</p>
+                </div>
+            </div>
+        </section>
+
+        <section aria-labelledby="skills">
+            <h2 id="skills">Skills</h2>
+
+            <dl class="skills">
+                <dt>Languages</dt>
+                <dd>Python, JavaScript, SQL</dd>
+                <dt>Backend</dt>
+                <dd>FastAPI, PostgreSQL, REST APIs, web scraping, authentication</dd>
+                <dt>Data and AI</dt>
+                <dd>pandas, scikit-learn, LLM APIs (Gemini), prompt design</dd>
+                <dt>Tools</dt>
+                <dd>Git and GitHub Actions, Docker, Vercel, Neon, Corezoid</dd>
+                <dt>Spoken</dt>
+                <dd>Azerbaijani (native), Russian (fluent), English (upper-intermediate)</dd>
+            </dl>
+        </section>
+
+        <footer>
+            <p>
+                Write to me at <a href="mailto:vahidbabazade6@gmail.com">vahidbabazade6@gmail.com</a>
+                or on <a href="https://www.linkedin.com/in/vahid-babazade">LinkedIn</a>.
+            </p>
+        </footer>
+    </main>
+</body>
+</html>
