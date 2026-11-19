@@ -15,13 +15,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* ---------- Colors: cool grey-blue paper, steel blue, one warm signal color ---------- */
+        /* ---------- Colors: white paper, steel blue, one warm signal color. Always light ---------- */
         :root {
-            --paper: #edf0f3;
-            --surface: #f8f9fb;
+            --paper: #ffffff;
+            --surface: #f5f7f9;
             --ink: #17202b;
             --muted: #586372;
-            --rule: #c9d1da;
+            --rule: #dbe1e7;
             --accent: #2f5d8a;
             --signal: #b8832a;
 
@@ -29,20 +29,6 @@
             --mono: "IBM Plex Mono", Consolas, monospace;
 
             color-scheme: light;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --paper: #131920;
-                --surface: #1a222b;
-                --ink: #e2e7ed;
-                --muted: #95a2b1;
-                --rule: #2b3642;
-                --accent: #8db4dc;
-                --signal: #dca452;
-
-                color-scheme: dark;
-            }
         }
 
         * {
@@ -75,18 +61,28 @@
             border-radius: 2px;
         }
 
-        /* One column, left aligned: easy to read from top to bottom */
+        /* Left aligned, a bit wider: the projects and the experience use the width of the screen */
         .page {
-            max-width: 48rem;
+            max-width: 60rem;
             margin: 0 auto;
-            padding: 5.5rem 1.5rem 4rem;
+            padding: 3.5rem 1.5rem 3rem;
+        }
+
+        /* The name on the left, the short intro and the links on the right */
+        .hero {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 1.5rem 3.5rem;
+            align-items: end;
+            padding-bottom: 2.5rem;
+            border-bottom: 1px solid var(--rule);
         }
 
         /* ---------- Hero ---------- */
 
         .name {
             margin: 0;
-            font-size: clamp(2.75rem, 8vw, 4.5rem);
+            font-size: clamp(2.5rem, 6vw, 3.75rem);
             font-weight: 700;
             line-height: 0.98;
             letter-spacing: -0.035em;
@@ -94,9 +90,9 @@
 
         .intro {
             max-width: 34rem;
-            margin: 1.5rem 0 0;
+            margin: 0;
             color: var(--muted);
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             line-height: 1.5;
         }
 
@@ -109,7 +105,7 @@
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem 1.75rem;
-            margin: 2rem 0 0;
+            margin: 1rem 0 0;
             padding: 0;
             list-style: none;
             font-weight: 500;
@@ -118,12 +114,12 @@
         /* ---------- Sections ---------- */
 
         section {
-            margin-top: 5.5rem;
+            margin-top: 3.5rem;
         }
 
         h2 {
-            margin: 0 0 2rem;
-            padding-bottom: 0.75rem;
+            margin: 0 0 1.5rem;
+            padding-bottom: 0.6rem;
             border-bottom: 1px solid var(--rule);
             font-size: 1.05rem;
             font-weight: 700;
@@ -133,7 +129,7 @@
         /* ---------- A project: title, what it does, its pipeline, facts, links ---------- */
 
         .project + .project {
-            margin-top: 4rem;
+            margin-top: 3rem;
         }
 
         .project h3 {
@@ -325,7 +321,7 @@
         /* ---------- Footer ---------- */
 
         footer {
-            margin-top: 5.5rem;
+            margin-top: 3.5rem;
             padding-top: 1.5rem;
             border-top: 1px solid var(--rule);
             color: var(--muted);
@@ -340,11 +336,16 @@
 
         @media (max-width: 640px) {
             .page {
-                padding: 3.5rem 1rem 3rem;
+                padding: 2.5rem 1rem 2.5rem;
+            }
+
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.25rem;
             }
 
             section {
-                margin-top: 4rem;
+                margin-top: 3rem;
             }
 
             /* The pipeline goes down instead of across: the line on the left */
@@ -409,8 +410,9 @@
 </head>
 <body>
     <main class="page">
-        <header>
+        <header class="hero">
             <h1 class="name">Vahid<br>Babazade</h1>
+            <div>
             <p class="intro">
                 <strong>Backend developer in Baku.</strong>
                 I build data pipelines that take messy data from the web, clean it, run it through a model
@@ -421,6 +423,7 @@
                 <li><a href="https://www.linkedin.com/in/vahid-babazade">LinkedIn</a></li>
                 <li><a href="mailto:vahidbabazade6@gmail.com">vahidbabazade6@gmail.com</a></li>
             </ul>
+            </div>
         </header>
 
         <section aria-labelledby="projects">
