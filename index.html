@@ -4,10 +4,10 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Vahid Babazade — Backend developer</title>
-    <meta name="description" content="Backend developer in Baku. Python, FastAPI, PostgreSQL. Projects: Kernl, an AI news briefing, and a price model for Baku apartments.">
+    <meta name="description" content="Backend developer in Baku: Python, FastAPI, PostgreSQL. Backend developer at Azerpoçt, co-founder of Kernl.">
 
     <meta property="og:title" content="Vahid Babazade — Backend developer">
-    <meta property="og:description" content="Python, FastAPI, PostgreSQL. I build data pipelines that turn messy web data into something people can use.">
+    <meta property="og:description" content="Backend developer in Baku: APIs, databases and background jobs with Python, FastAPI and PostgreSQL.">
     <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,10 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <style>
-        /* ---------- Colors: white paper, steel blue, one warm signal color. Always light ---------- */
+        /* ---------- Colors: white paper, steel blue, one warm signal color ---------- */
         :root {
             --paper: #ffffff;
-            --surface: #f5f7f9;
             --ink: #17202b;
             --muted: #586372;
             --rule: #dbe1e7;
@@ -61,24 +60,22 @@
             border-radius: 2px;
         }
 
-        /* Left aligned, a bit wider: the projects and the experience use the width of the screen */
         .page {
-            max-width: 60rem;
+            max-width: 64rem;
             margin: 0 auto;
             padding: 3.5rem 1.5rem 3rem;
         }
 
-        /* The name on the left, the short intro and the links on the right */
+        /* ---------- Hero: the name on the left, who I am and the links on the right ---------- */
+
         .hero {
             display: grid;
             grid-template-columns: auto minmax(0, 1fr);
             gap: 1.5rem 3.5rem;
             align-items: end;
-            padding-bottom: 2.5rem;
+            padding-bottom: 3rem;
             border-bottom: 1px solid var(--rule);
         }
-
-        /* ---------- Hero ---------- */
 
         .name {
             margin: 0;
@@ -88,24 +85,25 @@
             letter-spacing: -0.035em;
         }
 
-        .intro {
-            max-width: 34rem;
+        .role {
             margin: 0;
-            color: var(--muted);
-            font-size: 1.15rem;
-            line-height: 1.5;
+            font-size: 1.2rem;
+            font-weight: 500;
         }
 
-        .intro strong {
-            color: var(--ink);
-            font-weight: 500;
+        .intro {
+            max-width: 30rem;
+            margin: 0.4rem 0 0;
+            color: var(--muted);
+            font-size: 1.1rem;
+            line-height: 1.5;
         }
 
         .links {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem 1.75rem;
-            margin: 1rem 0 0;
+            margin: 1.5rem 0 0;
             padding: 0;
             list-style: none;
             font-weight: 500;
@@ -118,7 +116,7 @@
         }
 
         h2 {
-            margin: 0 0 1.5rem;
+            margin: 0 0 1.75rem;
             padding-bottom: 0.6rem;
             border-bottom: 1px solid var(--rule);
             font-size: 1.05rem;
@@ -126,7 +124,109 @@
             letter-spacing: -0.01em;
         }
 
-        /* ---------- A project: title, what it does, its pipeline, facts, links ---------- */
+        /* ---------- Experience: a timeline, newest first, one dot per job ---------- */
+
+        .timeline {
+            position: relative;
+            margin: 0;
+            padding: 0 0 0 2rem;
+            list-style: none;
+        }
+
+        /* The line that joins the jobs */
+        .timeline::before {
+            content: "";
+            position: absolute;
+            top: 0.55rem;
+            bottom: 0.55rem;
+            left: 0.4rem;
+            width: 2px;
+            background: var(--rule);
+        }
+
+        .job {
+            position: relative;
+        }
+
+        .job + .job {
+            margin-top: 2.25rem;
+        }
+
+        /* The dot of a job: filled for a job I have now, empty for a past one */
+        .job::before {
+            content: "";
+            position: absolute;
+            top: 0.4rem;
+            left: -2rem;
+            width: 0.95rem;
+            height: 0.95rem;
+            border: 2px solid var(--accent);
+            border-radius: 50%;
+            background: var(--paper);
+        }
+
+        .job.is-current::before {
+            background: var(--accent);
+        }
+
+        /* The title on the left, the dates on the right */
+        .job-head {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 0.25rem 1.5rem;
+        }
+
+        .job h3,
+        .school h3 {
+            margin: 0;
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .when {
+            color: var(--muted);
+            font-size: 0.95rem;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        .where {
+            margin: 0.1rem 0 0;
+            color: var(--muted);
+        }
+
+        /* What was done: short points with a warm marker */
+        .facts {
+            max-width: 46rem;
+            margin: 0.75rem 0 0;
+            padding-left: 1.1rem;
+        }
+
+        .facts li + li {
+            margin-top: 0.35rem;
+        }
+
+        .facts li::marker {
+            color: var(--signal);
+        }
+
+        .stack {
+            margin: 0.75rem 0 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .stack code,
+        .stage-text code {
+            font-family: var(--mono);
+            font-size: 0.85em;
+            color: var(--ink);
+        }
+
+        /* ---------- Projects: what each one does and its pipeline ---------- */
 
         .project + .project {
             margin-top: 3rem;
@@ -134,17 +234,17 @@
 
         .project h3 {
             margin: 0;
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             font-weight: 700;
             line-height: 1.15;
             letter-spacing: -0.02em;
         }
 
         .lead {
-            max-width: 38rem;
+            max-width: 40rem;
             margin: 0.5rem 0 0;
             color: var(--muted);
-            font-size: 1.125rem;
+            font-size: 1.1rem;
         }
 
         /* The pipeline: the stages the data goes through, left to right, joined by one line.
@@ -154,7 +254,7 @@
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 1rem;
-            margin: 2rem 0 0;
+            margin: 1.75rem 0 0;
             padding: 0;
             list-style: none;
         }
@@ -168,19 +268,7 @@
             left: 0.45rem;
             width: calc(75% + 0.75rem);
             height: 2px;
-            background: var(--rule);
-        }
-
-        .pipeline::after {
-            content: "";
-            position: absolute;
-            top: 0.45rem;
-            left: 0.45rem;
-            height: 2px;
-            width: calc(75% + 0.75rem);
             background: var(--accent);
-            transform-origin: left;
-            animation: draw 1.6s cubic-bezier(0.6, 0, 0.2, 1) 0.3s both;
         }
 
         .stage {
@@ -192,26 +280,8 @@
             display: block;
             width: 0.95rem;
             height: 0.95rem;
-            border: 2px solid var(--accent);
             border-radius: 50%;
-            background: var(--paper);
-            animation: fill 0.3s ease both;
-        }
-
-        /* Each dot fills when the line reaches it */
-        .stage:nth-child(1) .dot { animation-delay: 0.3s; }
-        .stage:nth-child(2) .dot { animation-delay: 0.8s; }
-        .stage:nth-child(3) .dot { animation-delay: 1.3s; }
-        .stage:nth-child(4) .dot { animation-delay: 1.8s; }
-
-        @keyframes draw {
-            from { transform: scaleX(0); }
-            to   { transform: scaleX(1); }
-        }
-
-        @keyframes fill {
-            from { background: var(--paper); }
-            to   { background: var(--accent); }
+            background: var(--accent);
         }
 
         .stage-name {
@@ -228,34 +298,6 @@
             line-height: 1.45;
         }
 
-        /* Tools in the stage: code-like names, so a code font */
-        .stage-text code,
-        .stack code {
-            font-family: var(--mono);
-            font-size: 0.85em;
-            color: var(--ink);
-        }
-
-        .facts {
-            max-width: 40rem;
-            margin: 2rem 0 0;
-            padding-left: 1.1rem;
-        }
-
-        .facts li + li {
-            margin-top: 0.4rem;
-        }
-
-        .facts li::marker {
-            color: var(--signal);
-        }
-
-        .stack {
-            margin: 1.5rem 0 0;
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
-
         .project-links {
             display: flex;
             flex-wrap: wrap;
@@ -266,42 +308,7 @@
             font-weight: 500;
         }
 
-        /* ---------- Experience and education: what, where, when ---------- */
-
-        .entry {
-            display: grid;
-            grid-template-columns: 9rem minmax(0, 1fr);
-            gap: 0.25rem 2rem;
-        }
-
-        .entry + .entry {
-            margin-top: 2rem;
-        }
-
-        .when {
-            color: var(--muted);
-            font-size: 0.95rem;
-            font-variant-numeric: tabular-nums;
-            padding-top: 0.15rem;
-        }
-
-        .entry h3 {
-            margin: 0;
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        .where {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .entry p:not(.where) {
-            max-width: 36rem;
-            margin: 0.6rem 0 0;
-        }
-
-        /* ---------- Skills: plain lines, grouped ---------- */
+        /* ---------- Skills ---------- */
 
         .skills {
             display: grid;
@@ -332,16 +339,19 @@
             margin: 0;
         }
 
-        /* ---------- Phones ---------- */
+        /* ---------- Tablets and phones ---------- */
+
+        @media (max-width: 860px) {
+            /* The text goes under the name */
+            .hero {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 1.25rem;
+            }
+        }
 
         @media (max-width: 640px) {
             .page {
                 padding: 2.5rem 1rem 2.5rem;
-            }
-
-            .hero {
-                grid-template-columns: minmax(0, 1fr);
-                gap: 1.25rem;
             }
 
             section {
@@ -355,19 +365,10 @@
                 padding-left: 1.75rem;
             }
 
-            .pipeline::before,
-            .pipeline::after {
-                top: 0.45rem;
+            .pipeline::before {
                 bottom: 0.45rem;
-                left: 0.45rem;
-                right: auto;
                 width: 2px;
                 height: auto;
-            }
-
-            .pipeline::after {
-                transform-origin: top;
-                animation-name: draw-down;
             }
 
             .dot {
@@ -380,32 +381,16 @@
                 margin-top: 0;
             }
 
-            .entry,
             .skills {
                 grid-template-columns: minmax(0, 1fr);
+                gap: 0.2rem;
             }
 
             .skills dd + dt {
-                margin-top: 0.5rem;
+                margin-top: 0.6rem;
             }
         }
 
-        @keyframes draw-down {
-            from { transform: scaleY(0); }
-            to   { transform: scaleY(1); }
-        }
-
-        /* Animations turned off in the system settings: the line and the dots are simply there */
-        @media (prefers-reduced-motion: reduce) {
-            .pipeline::after,
-            .dot {
-                animation: none;
-            }
-
-            .dot {
-                background: var(--accent);
-            }
-        }
     </style>
 </head>
 <body>
@@ -413,18 +398,75 @@
         <header class="hero">
             <h1 class="name">Vahid<br>Babazade</h1>
             <div>
-            <p class="intro">
-                <strong>Backend developer in Baku.</strong>
-                I build data pipelines that take messy data from the web, clean it, run it through a model
-                and give people something they can use.
-            </p>
-            <ul class="links">
-                <li><a href="https://github.com/vbabazade8">GitHub</a></li>
-                <li><a href="https://www.linkedin.com/in/vahid-babazade">LinkedIn</a></li>
-                <li><a href="mailto:vahidbabazade6@gmail.com">vahidbabazade6@gmail.com</a></li>
-            </ul>
+                <p class="role">Backend developer in Baku</p>
+                <p class="intro">
+                    I build APIs, databases and background jobs with Python, FastAPI and PostgreSQL,
+                    and take them all the way to production.
+                </p>
+                <ul class="links">
+                    <li><a href="https://github.com/vbabazade8">GitHub</a></li>
+                    <li><a href="https://www.linkedin.com/in/vahid-babazade">LinkedIn</a></li>
+                    <li><a href="mailto:vahidbabazade6@gmail.com">vahidbabazade6@gmail.com</a></li>
+                </ul>
             </div>
         </header>
+
+        <section aria-labelledby="experience">
+            <h2 id="experience">Experience</h2>
+
+            <ol class="timeline">
+                <li class="job is-current">
+                    <div class="job-head">
+                        <h3>Backend Developer</h3>
+                        <span class="when">Nov 2026 – now</span>
+                    </div>
+                    <p class="where">Azerpoçt, Baku</p>
+                    <ul class="facts">
+                        <li>Build backend processes on Corezoid for the national postal operator: JavaScript steps send data from web forms through an API to PL/pgSQL functions.</li>
+                        <li>Work on B2B financial portfolio pages: accounts, investment uploads and operations.</li>
+                        <li>Administer the helpdesk ticket pages used inside the company.</li>
+                    </ul>
+                    <p class="stack">
+                        <code>JavaScript</code>, <code>PostgreSQL</code>, <code>PL/pgSQL</code>, <code>REST APIs</code>, <code>Corezoid</code>
+                    </p>
+                </li>
+
+                <li class="job is-current">
+                    <div class="job-head">
+                        <h3>Co-founder and Backend Developer</h3>
+                        <span class="when">Oct 2026 – now</span>
+                    </div>
+                    <p class="where"><a href="https://kernl.news">Kernl</a>, an AI briefing on Azerbaijani business news</p>
+                    <ul class="facts">
+                        <li>Designed and built the whole backend: a FastAPI web app and REST API on a PostgreSQL database of 15 tables.</li>
+                        <li>Accounts with email and password, one-time email codes and sessions; passwords hashed with argon2.</li>
+                        <li>Security against the OWASP Top 10: CSRF tokens on every form, rate limits per IP and per email, security headers, sanitized HTML.</li>
+                        <li>Scheduled jobs on GitHub Actions: scrapers every 4 hours, then a nightly pipeline that asks an LLM for digests, checks its answers and retries.</li>
+                        <li>Delivery by email (Resend, with delivery webhooks) and Telegram (a bot with a signed webhook), with a send log so nobody gets a message twice.</li>
+                    </ul>
+                    <p class="stack">
+                        <code>Python</code>, <code>FastAPI</code>, <code>PostgreSQL</code>, <code>GitHub Actions</code>,
+                        <code>Gemini API</code>, <code>Vercel</code>
+                    </p>
+                </li>
+
+                <li class="job">
+                    <div class="job-head">
+                        <h3>Backend Developer Intern</h3>
+                        <span class="when">Apr 2026 – Nov 2026</span>
+                    </div>
+                    <p class="where">Azerpoçt, Baku</p>
+                    <ul class="facts">
+                        <li>Built the helpdesk ticket pages for the company's internal support.</li>
+                        <li>Built product management forms: JavaScript on Corezoid that sends the form data through an API to PostgreSQL functions.</li>
+                        <li>Moved to a full-time backend developer position after seven months.</li>
+                    </ul>
+                    <p class="stack">
+                        <code>JavaScript</code>, <code>PostgreSQL</code>, <code>PL/pgSQL</code>, <code>Corezoid</code>
+                    </p>
+                </li>
+            </ol>
+        </section>
 
         <section aria-labelledby="projects">
             <h2 id="projects">Projects</h2>
@@ -432,8 +474,8 @@
             <article class="project">
                 <h3>Kernl</h3>
                 <p class="lead">
-                    A daily AI briefing on Azerbaijani business news for executives and investors,
-                    in English, Azerbaijani and Russian.
+                    Reads 400–600 news articles every night and turns them into a five-minute digest
+                    for four industries, in English, Azerbaijani and Russian.
                 </p>
 
                 <ol class="pipeline" aria-label="How Kernl works">
@@ -445,48 +487,36 @@
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Store</span>
-                        <span class="stage-text">400–600 news a day in <code>PostgreSQL</code> (Neon)</span>
+                        <span class="stage-text"><code>PostgreSQL</code>; repeated runs skip articles that are already saved</span>
                     </li>
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Summarize</span>
-                        <span class="stage-text"><code>Gemini</code> as a senior analyst, one digest per industry</span>
+                        <span class="stage-text"><code>Gemini</code> with a structured JSON answer, checked and retried</span>
                     </li>
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Deliver</span>
-                        <span class="stage-text">Website, email and Telegram, every morning</span>
+                        <span class="stage-text">Website, REST API, email and Telegram, every morning</span>
                     </li>
                 </ol>
 
-                <ul class="facts">
-                    <li>Turns hundreds of articles into a five-minute read for four industries: investment, banking, energy and real estate.</li>
-                    <li>Every fact in a digest links to the original article, so readers can check it.</li>
-                    <li>Runs on its own with GitHub Actions. Accounts with email codes, CSRF protection and rate limits are built in.</li>
-                </ul>
-
-                <p class="stack">
-                    <code>Python</code>, <code>FastAPI</code>, <code>PostgreSQL</code>, <code>Gemini API</code>,
-                    <code>GitHub Actions</code>, <code>Vercel</code>
-                </p>
-
                 <ul class="project-links">
                     <li><a href="https://kernl.news">kernl.news</a></li>
-                    <li><a href="https://github.com/vbabazade8/az-news-assistant">Source code</a></li>
                 </ul>
             </article>
 
             <article class="project">
                 <h3>Baku apartment prices</h3>
                 <p class="lead">
-                    A model that estimates the price of an apartment in Baku from its area, rooms, floor and district.
+                    An API that estimates the price of an apartment in Baku from its area, rooms, floor and district.
                 </p>
 
                 <ol class="pipeline" aria-label="How the price model works">
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Collect</span>
-                        <span class="stage-text">58,675 listings from the bina.az <code>GraphQL</code> API</span>
+                        <span class="stage-text">58,675 listings from the bina.az <code>GraphQL</code> API, page by page</span>
                     </li>
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
@@ -496,25 +526,14 @@
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Train</span>
-                        <span class="stage-text">4 models compared, gradient boosting tuned with <code>Optuna</code></span>
+                        <span class="stage-text">Gradient boosting, average error 37,500 AZN (R² 0.83)</span>
                     </li>
                     <li class="stage">
                         <span class="dot" aria-hidden="true"></span>
                         <span class="stage-name">Serve</span>
-                        <span class="stage-text"><code>FastAPI</code> and a simple form, in <code>Docker</code></span>
+                        <span class="stage-text"><code>FastAPI</code> with input checks on the server, in <code>Docker</code></span>
                     </li>
                 </ol>
-
-                <ul class="facts">
-                    <li>The average error went from about 120,000 to 37,500 AZN (R² 0.83) as the dataset grew from 1,400 to 44,000 listings.</li>
-                    <li>Area and district matter most; the paid "VIP" listing flag barely matters at all.</li>
-                    <li>Each step is a separate notebook, so the reasoning behind every change can be followed.</li>
-                </ul>
-
-                <p class="stack">
-                    <code>Python</code>, <code>pandas</code>, <code>scikit-learn</code>, <code>Optuna</code>,
-                    <code>FastAPI</code>, <code>Docker</code>
-                </p>
 
                 <ul class="project-links">
                     <li><a href="https://home-price-prediction-sandy.vercel.app/static/index.html">Try it</a></li>
@@ -523,50 +542,35 @@
             </article>
         </section>
 
-        <section aria-labelledby="experience">
-            <h2 id="experience">Experience</h2>
-
-            <div class="entry">
-                <p class="when">2026 – now</p>
-                <div>
-                    <h3>Backend Developer</h3>
-                    <p class="where">Azerpoçt, Baku</p>
-                    <p>
-                        Automating business processes for the national postal operator on Corezoid: process logic
-                        in JavaScript, PostgreSQL functions, and internal tools such as product management forms
-                        and helpdesk ticket pages.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <section aria-labelledby="education">
-            <h2 id="education">Education</h2>
-
-            <div class="entry">
-                <p class="when">2024 – 2028</p>
-                <div>
-                    <h3>Information Technology, Bachelor's</h3>
-                    <p class="where">Azerbaijan State University of Economics (UNEC)</p>
-                </div>
-            </div>
-        </section>
-
         <section aria-labelledby="skills">
             <h2 id="skills">Skills</h2>
 
             <dl class="skills">
                 <dt>Languages</dt>
-                <dd>Python, JavaScript, SQL</dd>
+                <dd>Python, SQL, JavaScript</dd>
                 <dt>Backend</dt>
-                <dd>FastAPI, PostgreSQL, REST APIs, web scraping, authentication</dd>
-                <dt>Data and AI</dt>
-                <dd>pandas, scikit-learn, LLM APIs (Gemini), prompt design</dd>
-                <dt>Tools</dt>
-                <dd>Git and GitHub Actions, Docker, Vercel, Neon, Corezoid</dd>
+                <dd>FastAPI, REST APIs, authentication and sessions, webhooks, scheduled jobs, web scraping</dd>
+                <dt>Databases</dt>
+                <dd>PostgreSQL: schema design, indexes, constraints, PL/pgSQL functions</dd>
+                <dt>DevOps</dt>
+                <dd>Git, GitHub Actions (CI/CD, cron jobs), Docker, Vercel, Neon</dd>
+                <dt>Integrations</dt>
+                <dd>LLM APIs (Gemini), email (Resend), Telegram Bot API, Corezoid</dd>
                 <dt>Spoken</dt>
                 <dd>Azerbaijani (native), Russian (fluent), English (upper-intermediate)</dd>
             </dl>
+        </section>
+
+        <section aria-labelledby="education">
+            <h2 id="education">Education</h2>
+
+            <div class="school">
+                <div class="job-head">
+                    <h3>Information Technology, Bachelor's</h3>
+                    <span class="when">2024 – 2028</span>
+                </div>
+                <p class="where">Azerbaijan State University of Economics (UNEC)</p>
+            </div>
         </section>
 
         <footer>
